@@ -43,15 +43,15 @@ func getIpSubnet() netip.Prefix {
 	return ipSubnet
 }
 
-func runNmapScan(ipSubnet netip.Prefix) string {
+func runNmapScan(ipSubnet netip.Prefix) []byte {
 	// nmap -sP -n -oX - 192.168.0.0/24
 	cmd := exec.Command("nmap", "-sP", "-n", "-oX", "-", ipSubnet.String())
 	output, _ := cmd.CombinedOutput()
-	return string(output)
+	return output
 }
 
-func parseScan(scanOutput string) {
+func parseScan(scanOutput []byte) {
 	nmapStruct := NmapStruct{}
-	xml.Unmarshal([]byte(scanOutput), &nmapStruct)
+	xml.Unmarshal(scanOutput, &nmapStruct)
 	fmt.Println(nmapStruct)
 }
