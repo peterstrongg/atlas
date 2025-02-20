@@ -1,16 +1,30 @@
 package main
 
 import (
+	"encoding/xml"
 	"fmt"
 	"net"
 	"net/netip"
 	"os/exec"
 )
 
+type NmapStruct struct {
+	NmapHosts []NmapHost `xml:"host"`
+}
+
+type NmapHost struct {
+	NmapAddresses []NmapAddress `xml:"address"`
+}
+
+type NmapAddress struct {
+	Address     string `xml:"addr,attr"`
+	AddressType string `xml:"addrtype,attr"`
+}
+
 func main() {
 	ipSubnet := getIpSubnet()
 	out := runNmapScan(ipSubnet)
-	fmt.Println(out)
+	parseScan(out)
 }
 
 func getIpSubnet() netip.Prefix {
@@ -34,4 +48,10 @@ func runNmapScan(ipSubnet netip.Prefix) string {
 	cmd := exec.Command("nmap", "-sP", "-n", "-oX", "-", ipSubnet.String())
 	output, _ := cmd.CombinedOutput()
 	return string(output)
+}
+
+func parseScan(scanOutput string) {
+	nmapStruct := NmapStruct{}
+	xml.Unmarshal([]byte(scanOutput), &nmapStruct)
+	fmt.Println(nmapStruct)
 }
