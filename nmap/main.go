@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/xml"
-	"fmt"
 	"net"
 	"net/netip"
 	"os/exec"
@@ -50,8 +49,8 @@ func runNmapScan(ipSubnet netip.Prefix) []byte {
 	return output
 }
 
-func parseScan(scanOutput []byte) {
+func parseScan(scanOutput []byte) NmapStruct {
 	nmapStruct := NmapStruct{}
 	xml.Unmarshal(scanOutput, &nmapStruct)
-	fmt.Println(nmapStruct)
+	return nmapStruct
 }
