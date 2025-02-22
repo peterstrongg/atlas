@@ -8,11 +8,11 @@ import (
 )
 
 type NmapStruct struct {
-	NmapHosts []NmapHost `xml:"host"`
+	Hosts []NmapHost `xml:"host"`
 }
 
 type NmapHost struct {
-	NmapAddresses []NmapAddress `xml:"address"`
+	Addresses []NmapAddress `xml:"address"`
 }
 
 type NmapAddress struct {
@@ -22,6 +22,7 @@ type NmapAddress struct {
 
 func RunScan() NmapStruct {
 	// TODO: Pass optional IP and CIDR argument to specify ip range without calling getIpSubnet()
+	// Automatic CIDR detection should be secondary to hard code
 	ipSubnet := getIpSubnet()
 	return parseScan(runNmapScan(ipSubnet))
 }
