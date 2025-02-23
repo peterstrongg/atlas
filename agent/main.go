@@ -18,4 +18,5 @@ func sendData(nmapData nmap.NmapStruct) {
 		// TODO: Error handling
 	}
 	fmt.Println(string(jsonData))
+	// TODO: Make REST API request to reporting server
 }
