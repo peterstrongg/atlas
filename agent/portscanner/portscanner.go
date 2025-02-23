@@ -1,7 +1,6 @@
 package portscanner
 
 import (
-	"fmt"
 	"net/netip"
 	"os/exec"
 	"strings"
@@ -17,7 +16,6 @@ type Host struct {
 func RunPortscan(cidr string) []Host {
 	ips := getIps(cidr)
 	execPings(ips)
-	fmt.Println("DONE!")
 	return parseArpTable()
 }
 
