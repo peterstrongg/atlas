@@ -1,3 +1,5 @@
+// UNUSED
+
 package nmap
 
 import (
