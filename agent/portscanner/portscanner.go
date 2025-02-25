@@ -14,6 +14,8 @@ type Host struct {
 }
 
 func RunPortscan(cidr string) []Host {
+	// TODO: Pass optional IP and CIDR argument to specify ip range without calling getIpSubnet()
+	// Automatic CIDR detection should be secondary to hard code
 	ips := getIps(cidr)
 	execPings(ips)
 	return parseArpTable()
