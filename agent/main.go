@@ -1,7 +1,7 @@
 package main
 
 import (
-	"atlas/agent/portscanner"
+	"atlas/agent/pingscan"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -17,7 +17,7 @@ type yamlConfig struct {
 
 func main() {
 	config := loadConfig("config.yaml")
-	output := portscanner.RunPortscan("192.168.0.0/24")
+	output := pingscan.RunPingScan("192.168.0.0/24")
 	sendData(output, config.ReportingUrl)
 }
 
@@ -33,7 +33,7 @@ func loadConfig(path string) yamlConfig {
 }
 
 // Sends data to reporting server
-func sendData(nmapData []portscanner.Host, reportingUrl string) {
+func sendData(nmapData []pingscan.Host, reportingUrl string) {
 	jsonData, err := json.Marshal(nmapData)
 	if err != nil {
 		panic(err)

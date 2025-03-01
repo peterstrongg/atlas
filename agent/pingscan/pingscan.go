@@ -1,4 +1,4 @@
-package portscanner
+package pingscan
 
 import (
 	"net/netip"
@@ -13,7 +13,7 @@ type Host struct {
 	Dynamic    bool
 }
 
-func RunPortscan(cidr string) []Host {
+func RunPingScan(cidr string) []Host {
 	// TODO: Pass optional IP and CIDR argument to specify ip range without calling getIpSubnet()
 	// Automatic CIDR detection should be secondary to hard code
 	ips := getIps(cidr)
