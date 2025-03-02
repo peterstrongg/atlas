@@ -2,10 +2,8 @@ package main
 
 import (
 	"atlas/agent/pingscan"
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"net/http"
 	"os"
 
 	"gopkg.in/yaml.v3"
@@ -38,17 +36,18 @@ func sendData(nmapData []pingscan.Host, reportingUrl string) {
 	if err != nil {
 		panic(err)
 	}
+	fmt.Println(string(jsonData))
 
-	req, err := http.NewRequest("POST", reportingUrl, bytes.NewBuffer(jsonData))
-	req.Header.Set("Content-Type", "application/json")
-	if err != nil {
-		panic(err)
-	}
+	// req, err := http.NewRequest("POST", reportingUrl, bytes.NewBuffer(jsonData))
+	// req.Header.Set("Content-Type", "application/json")
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		panic(err)
-	}
-	defer resp.Body.Close()
+	// client := &http.Client{}
+	// resp, err := client.Do(req)
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// defer resp.Body.Close()
 }
